@@ -2,9 +2,9 @@ version: '3.8'
 
 services:
   discord-bot:
-    build: .
+    image: corentinth/it-tools:latest
     environment:
       - CONFIG_FILE=config.yaml
     volumes:
-      - .:/app
+      - /mnt/data/basedgpt:/app
     restart: unless-stopped
