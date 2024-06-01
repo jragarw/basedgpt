@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  discord-bot:
+  discord-based-bot:
     image: corentinth/it-tools:latest
     environment:
       - CONFIG_FILE=config.yaml
