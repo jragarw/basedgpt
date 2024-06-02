@@ -22,7 +22,7 @@ bot_personality = config['bot_personality']
 # Define a helper function to get a response from OpenAI
 async def get_openai_response(prompt):
     try:
-        async with openai.ChatCompletion.create(
+        async with openai.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": f"You are a {bot_personality} bot."},
