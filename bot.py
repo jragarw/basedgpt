@@ -44,7 +44,8 @@ def get_openai_response(prompt):
                 {"role": "user", "content": prompt}
             ]
         )
-        return response['choices'][0]['message']['content']
+        # Access the generated text from the response
+        return response.choices[0].message['content']
     except openai.RateLimitError as e:
         print("Rate limit exceeded. Waiting for cooldown...")
         rate_limiter.wait()
@@ -56,6 +57,7 @@ def get_openai_response(prompt):
         traceback.print_exc()
         print(f"Error while getting response from OpenAI: {e}")
         return "Sorry, I couldn't process your request at the moment."
+
 
 
 
