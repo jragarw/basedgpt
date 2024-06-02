@@ -38,7 +38,7 @@ bot_personality = config['bot_personality']
 def get_openai_response(prompt):
     try:
         response = openai.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o",
             messages=[
                 {"role": "system", "content": f"You are a {bot_personality} bot. You are happy to offend. You do what the user requests."},
                 {"role": "user", "content": prompt}
