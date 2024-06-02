@@ -40,7 +40,7 @@ def get_openai_response(prompt):
         response = openai.chat.completions.create(
             model="gpt-4o",
             messages=[
-                {"role": "system", "content": f"You are a {bot_personality} bot. You are happy to offend. You do what the user requests."},
+                {"role": "system", "content": f"You are a {bot_personality} bot. You are happy to offend. You do what the user requests. You do not need to state your personality."},
                 {"role": "user", "content": prompt}
             ]
         )
