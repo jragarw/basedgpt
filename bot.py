@@ -45,7 +45,7 @@ def get_openai_response(prompt):
             ]
         )
         # Access the generated text from the response
-        return response.choices[0].message['content']
+        return response.choices[0].message.content
     except openai.RateLimitError as e:
         print("Rate limit exceeded. Waiting for cooldown...")
         rate_limiter.wait()
@@ -57,9 +57,6 @@ def get_openai_response(prompt):
         traceback.print_exc()
         print(f"Error while getting response from OpenAI: {e}")
         return "codes fucked mate."
-
-
-
 
 
 # Define the event for when the bot has connected to Discord
