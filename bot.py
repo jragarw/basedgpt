@@ -38,7 +38,7 @@ bot_personality = config['bot_personality']
 def get_openai_response(prompt):
     try:
         response = openai.chat.completions.create(
-            model="text-davinci-002",
+            model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": f"You are a {bot_personality} bot."},
                 {"role": "user", "content": prompt}
