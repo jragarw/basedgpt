@@ -31,6 +31,9 @@ async def get_openai_response(prompt):
         )
         return response.choices[0].message['content']
     except Exception as e:
+        # Print the full exception stack trace for debugging
+        import traceback
+        traceback.print_exc()
         print(f"Error while getting response from OpenAI: {e}")
         return "Sorry, I couldn't process your request at the moment."
 
@@ -61,10 +64,16 @@ async def on_message(message):
             # Send the response back to the Discord channel
             await message.channel.send(response)
     except Exception as e:
+        # Print the full exception stack trace for debugging
+        import traceback
+        traceback.print_exc()
         print(f'Error in on_message: {e}')
 
 # Run the bot with the token from the config file
 try:
     client.run(config['token'])
 except Exception as e:
+    # Print the full exception stack trace for debugging
+    import traceback
+    traceback.print_exc()
     print(f"Error while running the bot: {e}")
