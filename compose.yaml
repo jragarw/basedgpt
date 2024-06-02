@@ -1,9 +1,7 @@
 version: "3.8"
-version: "3.8"
 services:
   discord-based-bot:
-    image: basedgpt
-    build: https://github.com/jragarw/basedgpt.git
+    build: https://github.com/jragarw/basedgpt.git#main
     environment:
       - CONFIG_FILE=config.yaml
     volumes:
