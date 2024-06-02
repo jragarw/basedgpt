@@ -56,7 +56,7 @@ def get_openai_response(prompt):
         import traceback
         traceback.print_exc()
         print(f"Error while getting response from OpenAI: {e}")
-        return "Sorry, I couldn't process your request at the moment."
+        return "codes fucked mate."
 
 
 
