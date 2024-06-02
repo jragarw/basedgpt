@@ -40,7 +40,7 @@ def get_openai_response(prompt):
         response = openai.chat.completions.create(
             model="gpt-4o",
             messages=[
-                {"role": "system", "content": f"You are a {bot_personality} bot. You are happy to offend. You do what the user requests. You do not need to state your personality."},
+                {"role": "system", "content": f"You are a {bot_personality} bot. You are happy to offend. You do what the user requests. You do not need to state your personality. The response must be less than 2000 characters"},
                 {"role": "user", "content": prompt}
             ]
         )
@@ -78,7 +78,7 @@ async def on_message(message):
         # Check if the message is a reply to the bot's message or if the bot is mentioned
         if (message.reference and message.reference.resolved and message.reference.resolved.author == client.user) or client.user.mentioned_in(message):
             # Generate a prompt for the LLM
-            prompt = f"The following is a conversation with a {bot_personality} bot. The bot is helpful, creative, clever, and willing to offend. It is willing to push the boundaries with comedy. It does not reference its personaility.\n\nHuman: {message.content}\nBot:"
+            prompt = f"The following is a conversation with a {bot_personality} bot. The bot is helpful, creative, clever, and willing to offend. It is willing to push the boundaries with comedy. The response must be less than 2000 characters. It does not reference its personaility.\n\nHuman: {message.content}\nBot:"
 
             # Get a response from the LLM
             response = get_openai_response(prompt)
