@@ -1,10 +1,10 @@
-version: "3.8"
+version: '3.8'
+
 services:
-  discord-based-bot:
-    build: https://github.com/jragarw/basedgpt.git#main
+  discord-bot:
+    build: .
     environment:
       - CONFIG_FILE=config.yaml
     volumes:
       - /mnt/data/basedgpt:/app
     restart: unless-stopped
-networks: {}

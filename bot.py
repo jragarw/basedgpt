@@ -33,6 +33,29 @@ async def get_openai_response(prompt):
 async def on_ready():
     print(f'We have logged in as {client.user}')
 
+@client.event
+async def on_message(message):
+    try:
+        # Don't let the bot reply to itself
+        if message.author == client.user:
+            return
+
+        # Generate a prompt for the LLM
+        prompt = f"The following is a conversation with a {bot_personality} bot. The bot is helpful, creative, clever, and very friendly.\n\nHuman: {message.content}\nBot:"
+        
+        # Get a response from the LLM
+        response = await get_openai_response(prompt)
+        
+        # Send the response back to the Discord channel
+        await message.channel.send(response)
+    except Exception as e:
+        print(f'Error: {e}')
+
+@client.event
+async def on_ready():
+    print(f'We have logged in as {client.user}')
+
+
 # Define the event for when a message is received
 @client.event
 async def on_message(message):
