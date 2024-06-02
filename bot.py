@@ -22,13 +22,14 @@ bot_personality = config['bot_personality']
 # Define a helper function to get a response from OpenAI
 async def get_openai_response(prompt):
     try:
-        response = await openai.Completion.create(
-            engine="davinci-codex",
-            prompt=prompt,
-            temperature=0.7,
-            max_tokens=150
-        )
-        return response.choices[0].text.strip()
+        async with openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": f"You are a {bot_personality} bot."},
+                {"role": "user", "content": prompt}
+            ]
+        ) as response:
+            return response.choices[0].message['content']
     except Exception as e:
         # Print the full exception stack trace for debugging
         import traceback
