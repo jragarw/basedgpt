@@ -11,6 +11,21 @@ with open(config_file, 'r') as file:
 # Initialize the OpenAI API
 openai.api_key = config['openai_api_key']
 
+# Define a rate limit helper class
+class RateLimiter:
+    def __init__(self, rate_limit):
+        self.rate_limit = rate_limit
+        self.last_request_time = 0
+
+    def wait(self):
+        now = time.time()
+        if now - self.last_request_time < self.rate_limit:
+            time.sleep(self.rate_limit - (now - self.last_request_time))
+        self.last_request_time = time.time()
+
+# Create an instance of RateLimiter with a rate limit of 1 request per second
+rate_limiter = RateLimiter(1.0)
+
 # Create an instance of a Client
 intents = discord.Intents.default()
 intents.message_content = True
