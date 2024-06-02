@@ -82,7 +82,7 @@ async def on_message(message):
             prompt = f"The following is a conversation with a {bot_personality} bot. The bot is helpful, creative, clever, and very friendly.\n\nHuman: {message.content}\nBot:"
 
             # Get a response from the LLM
-            response = await get_openai_response(prompt)
+            response = get_openai_response(prompt)
 
             # Send the response back to the Discord channel
             await message.channel.send(response)
