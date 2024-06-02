@@ -21,14 +21,18 @@ bot_personality = config['bot_personality']
 
 # Define a helper function to get a response from OpenAI
 async def get_openai_response(prompt):
-    response = await openai.ChatCompletion.acreate(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system", "content": f"You are a {bot_personality} bot."},
-            {"role": "user", "content": prompt}
-        ]
-    )
-    return response.choices[0].message['content']
+    try:
+        response = await openai.ChatCompletion.acreate(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": f"You are a {bot_personality} bot."},
+                {"role": "user", "content": prompt}
+            ]
+        )
+        return response.choices[0].message['content']
+    except Exception as e:
+        print(f"Error while getting response from OpenAI: {e}")
+        return "Sorry, I couldn't process your request at the moment."
 
 # Define the event for when the bot has connected to Discord
 @client.event
@@ -55,7 +59,10 @@ async def on_message(message):
         # Send the response back to the Discord channel
         await message.channel.send(response)
     except Exception as e:
-        print(f'Error: {e}')
+        print(f'Error in on_message: {e}')
 
 # Run the bot with the token from the config file
-client.run(config['token'])
+try:
+    client.run(config['token'])
+except Exception as e:
+    print(f"Error while running the bot: {e}")
