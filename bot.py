@@ -34,23 +34,28 @@ client = discord.Client(intents=intents)
 # Define the bot's personality
 bot_personality = config['bot_personality']
 
-# Define a helper function to get a response from OpenAI
 async def get_openai_response(prompt):
     try:
-        async with openai.chat.completions.create(
+        response = await openai.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": f"You are a {bot_personality} bot."},
                 {"role": "user", "content": prompt}
             ]
-        ) as response:
-            return response.choices[0].message['content']
+        )
+        return response.choices[0].message['content']
+    except openai.RateLimitError as e:
+        print("Rate limit exceeded. Waiting for cooldown...")
+        rate_limiter.wait()
+        # Retry the request
+        return await get_openai_response(prompt)
     except Exception as e:
         # Print the full exception stack trace for debugging
         import traceback
         traceback.print_exc()
         print(f"Error while getting response from OpenAI: {e}")
         return "Sorry, I couldn't process your request at the moment."
+
 
 
 # Define the event for when the bot has connected to Discord
